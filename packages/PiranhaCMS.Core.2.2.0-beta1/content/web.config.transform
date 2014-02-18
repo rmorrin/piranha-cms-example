@@ -1,0 +1,46 @@
+﻿<configuration>
+  <configSections>
+    <section name="piranha" type="Piranha.ConfigFile, Piranha" allowLocation="true" allowDefinition="Everywhere" />
+  </configSections>
+  <piranha>
+    <settings>
+      <managerNamespaces value="" />
+      <disableManager value="false" />
+      <passiveMode value="false" />
+      <prefixlessPermalinks value="false" />
+    </settings>
+    <providers>
+      <mediaProvider value="Piranha.IO.LocalMediaProvider, Piranha" />
+      <mediaCacheProvider value="Piranha.IO.LocalMediaCacheProvider, Piranha" />
+      <cacheProvider value="Piranha.Cache.WebCacheProvider, Piranha" />
+      <logProvider value="Piranha.Log.LocalLogProvider, Piranha" />
+    </providers>
+  </piranha>
+  <system.web>
+    <authentication mode="Forms">
+      <forms name="PiranhaCMS" timeout="30"/>
+    </authentication>
+    <sessionState timeout="30"/>
+    <pages controlRenderingCompatibilityVersion="4.0" />
+  </system.web>
+  <system.webServer>
+    <modules>
+      <remove name="UrlRoutingModule-4.0"/>
+      <add name="UrlRoutingModule-4.0" type="System.Web.Routing.UrlRoutingModule" preCondition=""/>
+    </modules>
+    <urlCompression doStaticCompression="true"/>
+  </system.webServer>
+  <system.serviceModel>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior>
+          <serviceAuthorization serviceAuthorizationManagerType="Piranha.Web.APIKeyAuthorization, Piranha" />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true"/>
+  </system.serviceModel>
+  <connectionStrings>
+		<add name="piranha" connectionString="data source=(localdb)\v11.0;initial catalog=piranha-testdb;integrated security=true" providerName="System.Data.SqlClient" />
+	</connectionStrings>
+</configuration>
